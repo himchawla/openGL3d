@@ -24,6 +24,9 @@ float old_t;
 
 void resetTroops();			//function forward declaration
 
+text* scor;
+text* tilescreen;
+
 
 //funtion to calculate deltatime, called in render
 void calculateDT(void) {
@@ -38,7 +41,6 @@ void calculateDT(void) {
 
 //______________________________
 object quad;
-text *tx;
 std::vector<enemy> enemies;
 GLuint Program_Quad;
 gameManager gm;
@@ -110,6 +112,7 @@ void demolish()
 void Render()
 {
 
+
 	if (gm.titlescreen)
 	{
 //		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
@@ -119,6 +122,10 @@ void Render()
 		////tx->SetScale(glm::vec2(400.0f, 400.0f));
 
 		//tx->Render();
+		
+		scor->Render();
+		glutSwapBuffers();
+		return;
 
 	}
 
@@ -181,6 +188,8 @@ void Render()
 		{
 			renderCall(i, Program_Quad, i.finalMat, 0, i.textures, (int)index);
 		}
+		scor->Render();
+
 	}
 
 	else if (gm.gameOver)
@@ -188,6 +197,8 @@ void Render()
 
 		glClearColor(1.0f, 0.0f, 1.0f, 0.0f);
 		renderCall(quad, Program_Quad, quad.finalMat, 0, quad.textures, (int)index);		//gameOver
+		scor->Render();
+
 
 	}
 
@@ -308,6 +319,8 @@ int main(int argc, char** argv)
 
 	old_t = (float)glutGet(GLUT_ELAPSED_TIME);
 
+
+
 	am.audioInit();
 	am.create("Background.mp3");					//background music
 	am.create("Thump.wav");
@@ -323,11 +336,9 @@ int main(int argc, char** argv)
 	glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
 
 
+	scor = new text("Welome", "Resources/Fonts/ARIAL.TTF", glm::vec2(0, 48), glm::vec2(10.0f, 50.0f));
 
-	tx = new text("Welcome to Chawla's game Press Enter to Begin", "Dependencies/Fonts/ARIAL.ttf", glm::vec2(0, 48), glm::vec2(0.0f, 0.0f));		//failed attemp to get text working
-	tx->genBuffers();
-	tx->loadChars("Dependencies/Fonts/ARIAL.ttf");
-	
+	scor->SetPosition(glm::vec2(0.0f, 600.0f));
 	quad.genBuffers();
 
 	glm::vec3 Scale = glm::vec3(0.1f, 0.1f, 0.1f);
