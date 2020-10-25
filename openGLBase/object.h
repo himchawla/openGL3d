@@ -39,10 +39,15 @@ private:
 
 public:
 
+	GLuint Program_Object;
 	bool getAttack();
 	void setRot(float rot);
 	void setScale(float x, float y);
 	
+	object();
+
+	object(bool);
+
 	void setAttack(bool a);
 	void move(float x, float y);
 	void absMove(float x, float y);
@@ -65,6 +70,7 @@ public:
 
 	glm::mat4 finalMat;
 	glm::mat4 updateObject(bool additional);
+	void Render(int in);
 	void setActiveTexure(GLuint Program, int x, std::string name, std::vector<GLuint> tex, int index);
 	std::string getName();
 	void setName(std::string n);
@@ -90,7 +96,7 @@ public:
 		animArray.push_back(an);
 	}
 
-	object();
+	//object();
 	~object();
 
 private:

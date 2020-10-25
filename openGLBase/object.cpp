@@ -17,6 +17,7 @@
 #include "object.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include<stb_image.h>
+#include "gameManager.h"
 
 Camera cam1;
 
@@ -92,12 +93,18 @@ void object::deleteBuffers()
 
 object::object()
 {
+	
+}
+
+object::object(bool)
+{
 	speed = 2.5f;
 
 	glm::vec3 Scale = glm::vec3(0.1f, 0.1f, 0.1f);
 	glm::vec3 Position = glm::vec3(0.5f, 0.5f, 0.0f);
 	float Rotation = 180.0f;
 	setStuff(Position, Rotation, Scale);
+	Program_Object = ShaderLoader::CreateProgram("Resources/Shaders/texture.vs", "Resources/Shaders/texture.fs");
 }
 
 //Deconstructor
@@ -214,6 +221,27 @@ glm::mat4 object::updateObject (bool additional)
 
 	return finalMat;
 }
+
+void object::Render(int in)
+{
+	glUseProgram(Program_Object);
+
+
+	gameManager::loadCurrentState(*this, Program_Object, in);
+
+		
+		
+
+
+	glUniformMatrix4fv((glGetUniformLocation(Program_Object, "finalMat")), 1, GL_FALSE, glm::value_ptr(finalMat));
+
+	glBindVertexArray(this->VAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	glUseProgram(0);
+}
+
 
 
 

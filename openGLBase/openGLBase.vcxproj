@@ -164,6 +164,20 @@
     <ClInclude Include="ShaderLoader.h" />
     <ClInclude Include="text.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Shaders\fragment.fs" />
+    <None Include="Resources\Shaders\quad.vs" />
+    <None Include="Resources\Shaders\text.fs" />
+    <None Include="Resources\Shaders\text.vs" />
+    <None Include="Resources\Shaders\texture.fs" />
+    <None Include="Resources\Shaders\texture.vs" />
+    <None Include="Resources\Shaders\textureAnim.fs" />
+    <None Include="Resources\Shaders\textureAnim.vs" />
+    <None Include="Resources\Shaders\textureScroll.fs" />
+    <None Include="Resources\Shaders\textureScroll.vs" />
+    <None Include="Resources\Shaders\triangle.vs" />
+    <None Include="Resources\Shaders\vertex.vs" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

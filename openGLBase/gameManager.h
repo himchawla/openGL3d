@@ -317,7 +317,7 @@ public:
 	}
 	
 
-	void loadCurrentState(object& obj, GLuint prog, int in)
+	static void loadCurrentState(object& obj, GLuint prog, int in)
 	{
 	
 		
@@ -335,7 +335,7 @@ public:
 
 		int index = in - y * (in / y);
 
-			obj.setActiveTexure(prog, 0, "textures", textures, index);
+		obj.setActiveTexure(prog, 0, "textures", textures, index);
 
 
 	}

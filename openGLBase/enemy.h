@@ -34,9 +34,11 @@ public:
 
 	void enMove(float dt, float x, float y, unsigned int seed);
 
-	
+	enemy(bool s) :object(s)
+	{
+
+	}
 
 	void Update(float dt);
-	void Render();
 };
 

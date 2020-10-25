@@ -1,6 +1,5 @@
 #version 460 core
 
-//uniform float CurrentTime;
 in vec2 FragTexCoords;
 
 uniform sampler2D TextTexture;
