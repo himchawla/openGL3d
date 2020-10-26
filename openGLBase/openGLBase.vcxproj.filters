@@ -68,6 +68,12 @@
     <ClInclude Include="text.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModelMesh.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\fragment.fs">
@@ -104,6 +110,12 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Resources\Shaders\vertex.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\model.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Resources\Shaders\model.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

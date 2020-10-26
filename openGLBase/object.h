@@ -60,6 +60,10 @@ public:
 	std::string getState();
 	void setState(std::string st);
 
+	glm::mat4 updateObject(float additional);
+
+	void Render(int in, std::vector<GLuint> t);
+
 	struct anim 
 	{
 		std::vector<GLuint> tex;
@@ -69,9 +73,7 @@ public:
 	};
 
 	glm::mat4 finalMat;
-	glm::mat4 updateObject(bool additional);
 	void Render(int in);
-	void setActiveTexure(GLuint Program, int x, std::string name, std::vector<GLuint> tex, int index);
 	std::string getName();
 	void setName(std::string n);
 	void genBuffers();
@@ -98,6 +100,8 @@ public:
 
 	//object();
 	~object();
+
+	void setActiveTexure(int x, std::string name, std::vector<GLuint> tex, int index);
 
 private:
 	std::vector<anim> animArray;

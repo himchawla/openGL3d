@@ -87,13 +87,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\Freetype\freetype;$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\STB;$(ProjectDir)Dependencies\GLEW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\assimp;$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\Freetype\freetype;$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\STB;$(ProjectDir)Dependencies\GLEW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\GLEW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetyped.lib;fmod_vc.lib;opengl32.lib;glew32.lib;freeglut.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\assimp;$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\GLEW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies> assimp-vc130-mtd.lib;freetyped.lib;fmod_vc.lib;opengl32.lib;glew32.lib;freeglut.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,15 +116,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\Freetype\freetype;$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\STB;$(ProjectDir)Dependencies\GLEW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Dependencies\assimp;$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\Freetype\freetype;$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\STB;$(ProjectDir)Dependencies\GLEW;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\GLEW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freetype.lib;fmod_vc.lib;opengl32.lib;glew32.lib;freeglut.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)Dependencies\assimp;$(ProjectDir)Dependencies\Freetype;$(ProjectDir)Dependencies\Freeglut;$(ProjectDir)Dependencies\GLM;$(ProjectDir)Dependencies\FMOD;$(ProjectDir)Dependencies\GLEW;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies> assimp-vc130-mtd.lib;freetype.lib;fmod_vc.lib;opengl32.lib;glew32.lib;freeglut.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -159,6 +159,8 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="enemy.h" />
     <ClInclude Include="gameManager.h" />
+    <ClInclude Include="Model.h" />
+    <ClInclude Include="ModelMesh.h" />
     <ClInclude Include="object.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="ShaderLoader.h" />
@@ -166,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Shaders\fragment.fs" />
+    <None Include="Resources\Shaders\model.fs" />
+    <None Include="Resources\Shaders\model.vs" />
     <None Include="Resources\Shaders\quad.vs" />
     <None Include="Resources\Shaders\text.fs" />
     <None Include="Resources\Shaders\text.vs" />

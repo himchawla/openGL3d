@@ -21,20 +21,61 @@
 
 Camera cam1;
 
-GLuint Indices_Quad[] =
+GLuint Indices[] =
 {
-   0,1,2,
-   0,2,3,
+   0, 1, 2,		//Front
+   0, 2, 3,		//Front
+
+   7, 6, 5,		//Back
+   7, 5, 4,		//Back
+
+   8, 9, 10,	//Left
+   8, 10, 11,	//Left
+
+   12, 13, 14,	//Right
+   12, 14, 15,	//Right
+
+   16, 17, 18,	//Top
+   16, 18, 19,	//Top
+
+   20, 21, 22,	//Bottom
+   20, 22, 23,	//Bottom
 };
 
 
-GLfloat Vertices_Quad[] =
+GLfloat Vertices[] =
 {
-	//Position						//Color						//Texture Coordinates
-	-1.0f,	1.0f,	0.0f,			1.0f,0.0f,0.0f,				0.0f,0.0f,
-	-1.0f,	-1.0f,	0.0f,			0.0f,1.0f,0.0f,				0.0f,1.0f,
-	 1.0f,	-1.0f,	0.0f,			0.0f,0.0f,1.0f,				1.0f,1.0f,
-	 1.0f,	 1.0f,	0.0f,			1.0f,1.0f,1.0f,				1.0f,0.0f,
+				//Position						//Color						//Texture Coordinates
+				//Front
+/*  0 */		-0.5f,	0.5f,	0.5f,			0.0f,1.0f,0.0f,				0.0f,0.0f,		/*  00  */
+/*  1 */		-0.5f,	-0.5f,	0.5f,			0.0f,1.0f,0.0f,				0.0f,1.0f,		/*  01  */
+/*  2 */  		 0.5f,	-0.5f,	0.5f,			0.0f,1.0f,1.0f,				1.0f,1.0f,		/*  02  */
+/*  3 */		 0.5f,	 0.5f,	0.5f,			0.0f,1.0f,1.0f,				1.0f,0.0f,		/*  03  */
+				//Back
+/*  4 */		-0.5f,	0.5f,  -0.5f,			0.0f,1.0f,0.0f,				1.0f,0.0f,		/*  04  */
+/*  5 */		-0.5f,	-0.5f, -0.5f,			0.0f,1.0f,0.0f,				1.0f,1.0f,		/*  05  */
+/*  6 */  		 0.5f,	-0.5f, -0.5f,			0.0f,1.0f,1.0f,				0.0f,0.0f,		/*  06  */
+/*  7 */		 0.5f,	 0.5f, -0.5f,			0.0f,1.0f,1.0f,				0.0f,0.0f,		/*  07  */
+
+/*  4 */		-0.5f,	0.5f,  -0.5f,			0.0f,1.0f,0.0f,				1.0f,0.0f,		/*  08  */
+/*  5 */		-0.5f,	-0.5f, -0.5f,			0.0f,1.0f,0.0f,				1.0f,1.0f,		/*  09  */
+/*  1 */		-0.5f,	-0.5f,	0.5f,			0.0f,1.0f,0.0f,				0.0f,1.0f,		/*  10  */
+/*  0 */		-0.5f,	0.5f,	0.5f,			0.0f,1.0f,0.0f,				0.0f,0.0f,		/*  11  */
+
+/*  3 */		 0.5f,	 0.5f,	0.5f,			0.0f,1.0f,1.0f,				1.0f,0.0f,		/*  12  */
+/*  2 */  		 0.5f,	-0.5f,	0.5f,			0.0f,1.0f,1.0f,				1.0f,1.0f,		/*  13  */
+/*  6 */  		 0.5f,	-0.5f, -0.5f,			0.0f,1.0f,1.0f,				0.0f,0.0f,		/*  14  */
+/*  7 */		 0.5f,	 0.5f, -0.5f,			0.0f,1.0f,1.0f,				0.0f,0.0f,		/*  15  */
+
+/*  4 */		-0.5f,	0.5f,  -0.5f,			0.0f,1.0f,0.0f,				1.0f,0.0f,		/*  16  */
+/*  0 */		-0.5f,	0.5f,	0.5f,			0.0f,1.0f,0.0f,				0.0f,0.0f,		/*  17  */
+/*  3 */		 0.5f,	 0.5f,	0.5f,			0.0f,1.0f,1.0f,				1.0f,0.0f,		/*  18  */
+/*  7 */		 0.5f,	 0.5f, -0.5f,			0.0f,1.0f,1.0f,				0.0f,0.0f,		/*  19  */
+
+/*  1 */		-0.5f,	-0.5f,	0.5f,			0.0f,1.0f,0.0f,				0.0f,1.0f,		/*  20  */
+/*  5 */		-0.5f,	-0.5f, -0.5f,			0.0f,1.0f,0.0f,				1.0f,1.0f,		/*  21  */
+/*  6 */  		 0.5f,	-0.5f, -0.5f,			0.0f,1.0f,1.0f,				0.0f,0.0f,		/*  22  */
+/*  2 */  		 0.5f,	-0.5f,	0.5f,			0.0f,1.0f,1.0f,				1.0f,1.0f,		/*  23  */
 };
 
 //generate Buffers, called during setup phase
@@ -46,12 +87,12 @@ void object::genBuffers()
 	glGenBuffers(1, &EBO);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices_Quad), Indices_Quad, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(Indices), Indices, GL_STATIC_DRAW);
 
 	
 	glGenBuffers(1, &VBO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices_Quad), Vertices_Quad, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GL_FLOAT), (GLvoid*)0);
 	glEnableVertexAttribArray(0);
@@ -115,7 +156,7 @@ object::~object()
 	glDeleteBuffers(1, &VBO);
 }
 
-void object::setActiveTexure(GLuint Program, int x, std::string name, std::vector<GLuint> tex, int index)
+void object::setActiveTexure(int x, std::string name, std::vector<GLuint> tex, int index)
 {
 	int y = tex.size();
 	glActiveTexture(33984 + x);		// GL_TEXTUR0 = 33984
@@ -130,7 +171,7 @@ void object::setActiveTexure(GLuint Program, int x, std::string name, std::vecto
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-	glUniform1i(glGetUniformLocation(Program, name.c_str()), x);
+	glUniform1i(glGetUniformLocation(this->Program_Object, name.c_str()), x);
 }
 
 std::string object::getName()
@@ -206,7 +247,7 @@ void object::setState(std::string st)
 	animState = st;
 }
 
-glm::mat4 object::updateObject (bool additional)
+glm::mat4 object::updateObject (float dt)
 {
 	glutPostRedisplay();
 
@@ -219,15 +260,19 @@ glm::mat4 object::updateObject (bool additional)
 	glm::mat4 modelMat = TranslationMat * rotationMat * scaleMat;
 	finalMat = cam1.project(modelMat);
 
+	cam1.Update(dt);
+
 	return finalMat;
 }
 
-void object::Render(int in)
+void object::Render(int in, std::vector<GLuint> t)
 {
 	glUseProgram(Program_Object);
 
 
-	gameManager::loadCurrentState(*this, Program_Object, in);
+//	gameManager::loadCurrentState(*this, Program_Object, in);
+
+	setActiveTexure(0, "textures", t, 0);
 
 		
 		

@@ -19,6 +19,8 @@
 #include <glm.hpp>
 #include<gtc/matrix_transform.hpp>
 #include<gtc/type_ptr.hpp>
+#include<glew.h>
+#include<freeglut.h>
 
 
 class Camera
@@ -31,8 +33,12 @@ private:
 	glm::mat4 projectionMat;
 	float screenWidth;
 	float screenHeight;
+	float timeElapsed;
+	float Rotation = 180.0f;
+
 public:
 	Camera();
+	void Update(float deltaTime);
 	glm::mat4 getMat();
 	glm::mat4 project(glm::mat4 modelMat);
 };

@@ -335,7 +335,7 @@ public:
 
 		int index = in - y * (in / y);
 
-		obj.setActiveTexure(prog, 0, "textures", textures, index);
+		obj.setActiveTexure(0, "textures", textures, index);
 
 
 	}
