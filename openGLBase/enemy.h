@@ -30,13 +30,17 @@ private:
 
 public:
 
-	enemy();
 
 	void enMove(float dt, float x, float y, unsigned int seed);
 
-	enemy(bool s) :object(s)
+	enemy(std::string s ,Camera* cam) :object(s, cam)
 	{
-
+		attackTimer = 0.0f;
+		moveTimer = 0.0f;
+		canMove = false;
+		purTimer = 0.5f;
+		pursuit = true;
+		moveDir = 0;
 	}
 
 	void Update(float dt);

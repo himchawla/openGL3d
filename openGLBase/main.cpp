@@ -28,10 +28,9 @@ text* label;
 
 GLuint tex;
 
-object cube;
+object* cube;
 
-Model* model;
-
+gameManager* gm;
 Camera* cam;
 
 //Rendering functio for cubes
@@ -53,9 +52,9 @@ void Render()
 
 	label->Render();
 
-	model->Render();
+	cube->Render();
 
-	
+
 	
 	glutSwapBuffers();
 
@@ -72,8 +71,8 @@ void resetTroops()								//Reset enemies
 //update function, used to call update functions of other classes
 void Update()
 {
-	cam->Update(dt);
-
+	//cam->Update(dt);
+	gm->keyboardMove(*cube, dt);
 	
 	//cube.updateObject(dt);
 }
@@ -98,7 +97,11 @@ int main(int argc, char** argv)
 	}
 	cam = new Camera;
 
-	model = new Model("Resources/Models/Tank/Tank.obj", cam);
+	cube = new object("Resources/Models/Tank/Tank.obj", cam);
+
+	gm = new gameManager;
+
+	gm->addInput();
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -113,8 +116,8 @@ int main(int argc, char** argv)
 	glutIdleFunc(Update);
 	//glutCloseFunc(Shutdown);
 
-//	glutKeyboardFunc(gameManager::keyboardDown);
-//	glutKeyboardUpFunc(gameManager::keyboardUp);
+	glutKeyboardFunc(gameManager::keyboardDown);
+	glutKeyboardUpFunc(gameManager::keyboardUp);
 
 	glutMainLoop();
 

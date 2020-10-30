@@ -49,7 +49,7 @@ void gameManager::Update(float dt)
 		s = rand() % 750;
 		seed += s;
 		
-		i.enMove(dt, quad.getX(), quad.getY(), seed);
+		//i.enMove(dt, quad.getX(), quad.getY(), seed);
 		i.Update(dt);
 	}
 

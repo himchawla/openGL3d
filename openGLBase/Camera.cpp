@@ -39,7 +39,7 @@ void Camera::Update(float deltaTime)
 
 	GLfloat radius = 20.0f;
 	cameraPos.x = sin(timeElapsed) * radius;
-	cameraPos.y = 1.5f;
+	cameraPos.y = -4.0f;
 	cameraPos.z = cos(timeElapsed) * radius;
 
 	std::cout << cameraPos.x << "\t" << cameraPos.y << "\t" << cameraPos.z << "\n";
@@ -53,20 +53,7 @@ void Camera::Update(float deltaTime)
 //Returns Product of Projection and View Matrix
 glm::mat4 Camera::getMat()
 {
-
-	glm::vec3 Scale = glm::vec3(10.0f, 10.0f, 10.0f);
-	glm::vec3 Position = glm::vec3(0.5f, 0.5f, 0.5f);
-	glm::mat4 TranslationMat = glm::translate(glm::mat4(), Position);
-	const glm::vec3 worldRotationAxis_Z = glm::vec3(0.0f, 1.0f, 0.0f);
-	glm::mat4 rotationMat = glm::rotate(glm::mat4(), glm::radians(Rotation), worldRotationAxis_Z);
-
-	glm::mat4 scaleMat = glm::scale(glm::mat4(), Scale);
-
-	glm::mat4 modelMat = TranslationMat * rotationMat * scaleMat;
-	
-
-	glm::mat4 worldScale = glm::scale(glm::mat4(), glm::vec3(1.0f, 1.0f, 1.0f));
-	glm::mat4 resMat = projectionMat * viewMat * modelMat;
+	glm::mat4 resMat = projectionMat * viewMat;
 	return resMat;
 }
 

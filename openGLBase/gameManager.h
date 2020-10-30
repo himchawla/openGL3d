@@ -54,7 +54,6 @@ private:
 	int lives = 3;
 	int numberOfEnemies;
 	std::vector<enemy> enemies;
-	object quad;
 
 
 public:
@@ -165,7 +164,7 @@ public:
 		AttackTimer -= dt;
 		if (AttackTimer <= 0.0f)
 		{
-			obj.setState("run");
+		//	obj.setState("run");
 		}
 		if (gameOver || victory)
 		{

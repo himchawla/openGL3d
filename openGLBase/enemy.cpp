@@ -18,15 +18,7 @@
 #include <time.h>
 
 // Constructor
-enemy::enemy()
-{
-	attackTimer = 0.0f;
-	moveTimer = 0.0f;
-	canMove = false;
-	purTimer = 0.5f;
-	pursuit = true;
-	moveDir = 0; 
-}
+
 
 
 

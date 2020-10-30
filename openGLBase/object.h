@@ -23,10 +23,10 @@
 #include "ShaderLoader.h"
 #include<vector>
 #include "Camera.h"
+#include"Model.h"
 
 
-
-class object
+class object:public Model
 {
 private:
 	glm::vec3 ObjPosition;
@@ -39,14 +39,20 @@ private:
 
 public:
 
-	GLuint Program_Object;
 	bool getAttack();
 	void setRot(float rot);
 	void setScale(float x, float y);
 	
-	object();
 
-	object(bool);
+	object(std::string s, Camera* cam) : Model(s, cam)
+	{
+		speed = 2.5f;
+
+		glm::vec3 Scale = glm::vec3(0.1f, 0.1f, 0.1f);
+		glm::vec3 Position = glm::vec3(0.5f, 0.5f, 0.0f);
+		float Rotation = 180.0f;
+		setStuff(Position, Rotation, Scale);
+	}
 
 	void setAttack(bool a);
 	void move(float x, float y);
@@ -62,7 +68,7 @@ public:
 
 	glm::mat4 updateObject(float additional);
 
-	void Render(int in, std::vector<GLuint> t);
+	//void Render(int in, std::vector<GLuint> t);
 
 	struct anim 
 	{
@@ -73,7 +79,7 @@ public:
 	};
 
 	glm::mat4 finalMat;
-	void Render(int in);
+	//void Render(int in);
 	std::string getName();
 	void setName(std::string n);
 	void genBuffers();

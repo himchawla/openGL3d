@@ -132,21 +132,7 @@ void object::deleteBuffers()
 
 
 
-object::object()
-{
-	
-}
 
-object::object(bool)
-{
-	speed = 2.5f;
-
-	glm::vec3 Scale = glm::vec3(0.1f, 0.1f, 0.1f);
-	glm::vec3 Position = glm::vec3(0.5f, 0.5f, 0.0f);
-	float Rotation = 180.0f;
-	setStuff(Position, Rotation, Scale);
-	Program_Object = ShaderLoader::CreateProgram("Resources/Shaders/texture.vs", "Resources/Shaders/texture.fs");
-}
 
 //Deconstructor
 object::~object()
@@ -155,24 +141,24 @@ object::~object()
 	glDeleteBuffers(1, &EBO);
 	glDeleteBuffers(1, &VBO);
 }
-
-void object::setActiveTexure(int x, std::string name, std::vector<GLuint> tex, int index)
-{
-	int y = tex.size();
-	glActiveTexture(33984 + x);		// GL_TEXTUR0 = 33984
-
-	
-	int in = index - y * (index / y);
-	glBindTexture(GL_TEXTURE_2D, tex[in]);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-	glUniform1i(glGetUniformLocation(this->Program_Object, name.c_str()), x);
-}
+//
+//void object::setActiveTexure(int x, std::string name, std::vector<GLuint> tex, int index)
+//{
+//	int y = tex.size();
+//	glActiveTexture(33984 + x);		// GL_TEXTUR0 = 33984
+//
+//	
+//	int in = index - y * (index / y);
+//	glBindTexture(GL_TEXTURE_2D, tex[in]);
+//
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+//	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//
+//	glUniform1i(glGetUniformLocation(this->Program_Object, name.c_str()), x);
+//}
 
 std::string object::getName()
 {
@@ -264,28 +250,28 @@ glm::mat4 object::updateObject (float dt)
 
 	return finalMat;
 }
-
-void object::Render(int in, std::vector<GLuint> t)
-{
-	glUseProgram(Program_Object);
-
-
-//	gameManager::loadCurrentState(*this, Program_Object, in);
-
-	setActiveTexure(0, "textures", t, 0);
-
-		
-		
-
-
-	glUniformMatrix4fv((glGetUniformLocation(Program_Object, "finalMat")), 1, GL_FALSE, glm::value_ptr(finalMat));
-
-	glBindVertexArray(this->VAO);
-	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-	glUseProgram(0);
-}
+//
+//void object::Render(int in, std::vector<GLuint> t)
+//{
+//	glUseProgram(Program_Object);
+//
+//
+////	gameManager::loadCurrentState(*this, Program_Object, in);
+//
+//	setActiveTexure(0, "textures", t, 0);
+//
+//		
+//		
+//
+//
+//	glUniformMatrix4fv((glGetUniformLocation(Program_Object, "finalMat")), 1, GL_FALSE, glm::value_ptr(finalMat));
+//
+//	glBindVertexArray(this->VAO);
+//	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+//	glBindBuffer(GL_ARRAY_BUFFER, 0);
+//	glBindVertexArray(0);
+//	glUseProgram(0);
+//}
 
 
 
