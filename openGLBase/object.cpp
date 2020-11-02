@@ -175,7 +175,7 @@ bool object::getAttack()
 	return attack;
 }
 
-void object::setRot(float rot)
+void object::setRot(glm::vec3 rot)
 {
 	objRotationAngle = rot;
 }
@@ -194,13 +194,16 @@ void object::setAttack(bool a)
 void object::move(float x, float y)
 {
 	ObjPosition.x += x * speed;
-	ObjPosition.y += y * speed;
+	ObjPosition.z += y * speed;
+
+//	camera->target = ObjPosition;
+
 }
 
 void object::absMove(float x, float y)
 {
 	ObjPosition.x = x;
-	ObjPosition.y = y;
+	ObjPosition.z = y;
 }
 
 float object::getSpeed()
@@ -216,6 +219,11 @@ float object::getX()
 float object::getY()
 {
 	return ObjPosition.y;
+}
+
+float object::getZ()
+{
+	return ObjPosition.z;
 }
 
 void object::setSpeed(float s)
@@ -238,13 +246,17 @@ glm::mat4 object::updateObject (float dt)
 	glutPostRedisplay();
 
 	glm::mat4 TranslationMat = glm::translate(glm::mat4(), ObjPosition);
+
+
 	const glm::vec3 worldRotationAxis_Z = glm::vec3(0.0f, 0.0f, 1.0f);
-	glm::mat4 rotationMat = glm::rotate(glm::mat4(), glm::radians(objRotationAngle), worldRotationAxis_Z);
+	glm::mat4 rotationMat = glm::rotate(glm::mat4(), glm::radians(objRotationAngle.x), worldRotationAxis_Z);
+	rotationMat += glm::rotate(glm::mat4(), glm::radians(objRotationAngle.y), glm::vec3(0.0f, 1.0f, 0.0f));
+	rotationMat += glm::rotate(glm::mat4(), glm::radians(objRotationAngle.z), glm::vec3(1.0f, 0.0f, 0.0f));
 
 	glm::mat4 scaleMat = glm::scale(glm::mat4(), objScale);
 
 	glm::mat4 modelMat = TranslationMat * rotationMat * scaleMat;
-	finalMat = cam1.project(modelMat);
+	//finalMat = cam1.project(modelMat);
 
 	cam1.Update(dt);
 
@@ -302,7 +314,7 @@ void object::imageLoader(std::string im, GLuint& TexNum)
 	
 }
 
-void object::setStuff(glm::vec3 ObjPos, float objRotAngle, glm::vec3 objSc)
+void object::setStuff(glm::vec3 ObjPos, glm::vec3 objRotAngle, glm::vec3 objSc)
 {
 	ObjPosition = ObjPos;
 	objRotationAngle = objRotAngle;

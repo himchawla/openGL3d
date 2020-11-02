@@ -26,6 +26,9 @@ struct MeshTexture {
 
 class ModelMesh {
 public:
+
+	
+
 	/*  Mesh Data  */
 	vector<Vertex> vertices;
 	vector<GLuint> indices;
@@ -43,7 +46,7 @@ public:
 	}
 
 	// Render the mesh
-	void Render(Camera* camera, GLuint program)
+	void Render(Camera* camera, GLuint program, glm::mat4 modelMat)
 	{
 		glUseProgram(program);
 
@@ -70,8 +73,12 @@ public:
 		
 		// EDIT
 		glm::mat4 model;
-		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.2f, 0.2f, 0.2f));
-		glm::mat4 mvp = camera->getMat() * scale;
+		glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(1.0f, -1.0f, 1.0f));
+
+		
+		
+
+		glm::mat4 mvp = camera->project(modelMat) * scale;
 		GLint mvpLoc = glGetUniformLocation(program, "MVP");
 		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));
 		// EDIT END
@@ -91,6 +98,8 @@ public:
 private:
 	/*  Render data  */
 	GLuint VAO, VBO, EBO;
+
+	
 
 	/*  Functions    */
 	// Initializes all the buffer objects/arrays

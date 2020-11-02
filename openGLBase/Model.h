@@ -31,6 +31,10 @@ using namespace std;
 class Model
 {
 public:
+
+	glm::vec3 ObjPosition;
+	glm::vec3 objRotationAngle;
+	glm::vec3 objScale;
 	
 	GLuint program;
 	Camera* camera;
@@ -48,15 +52,42 @@ public:
 	}
 
 	// Draws the model, and thus all its meshes
-	void Render()
+	void Render(bool ad)
 	{
+
+		glm::mat4 TranslationMat = glm::translate(glm::mat4(), ObjPosition);
+		const glm::vec3 worldRotationAxis_Z = glm::vec3(1.0f, 1.0f, 1.0f);
+		glm::mat4 rotationMat = glm::rotate(glm::mat4(),glm::radians(objRotationAngle.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		rotationMat *= glm::rotate(glm::mat4(), glm::radians(objRotationAngle.y), glm::vec3(0.0f, 1.0f, 0.0f));
+		rotationMat *= glm::rotate(glm::mat4(), glm::radians(objRotationAngle.x), glm::vec3(1.0f, 0.0f, 0.0f));
+
+		glm::mat4 scaleMat = glm::scale(glm::mat4(), objScale);
+
+		glm::mat4 modelMat = TranslationMat * rotationMat * scaleMat;
+		
+		if (ad)
+		{
+			camera->cameraPos = glm::vec3(ObjPosition.x - 1.5f, ObjPosition.y, ObjPosition.z);
+			camera->target = ObjPosition;
+
+		}
+
 		for (GLuint i = 0; i < this->meshes.size(); i++) 
 		{
 			//printf("mesh size: %d \n", meshes.size());
-			this->meshes[i].Render(camera, program);
+			this->meshes[i].Render(camera, program, modelMat);
 		}
 	}
 
+	void bulMove(float dt)
+	{
+		ObjPosition.z -= dt * 5.0f;
+	}
+
+	void setScalee(glm::vec3 s)
+	{
+		objScale = s;
+	}
 private:
 	/*  Model Data  */
 	vector<ModelMesh> meshes;

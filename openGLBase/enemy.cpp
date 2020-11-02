@@ -53,7 +53,7 @@ void enemy::enMove(float dt, float x, float y, unsigned int seed)
 				{
 					moveTimer = 0.1f;
 					canMove = false;
-					setRot(0.0f);
+					setRot(glm::vec3(0.0f,0.0f,0.0f));
 
 
 				}
@@ -70,7 +70,7 @@ void enemy::enMove(float dt, float x, float y, unsigned int seed)
 				if (canMove)
 				{
 					moveTimer = 0.1f;
-					setRot(180.0f);
+					setRot(glm::vec3(0.0f, 0.0f, 180.0f));
 
 					canMove = false;
 				}
@@ -89,7 +89,7 @@ void enemy::enMove(float dt, float x, float y, unsigned int seed)
 					canMove = false;
 					setState("move");
 					updateObject(1);
-					setRot(90.0f);
+					setRot(glm::vec3(0.0f, 0.0f, 90.0f));
 
 
 				}
@@ -106,7 +106,7 @@ void enemy::enMove(float dt, float x, float y, unsigned int seed)
 					moveTimer = 0.1f;
 					canMove = false;
 					updateObject(1);
-					setRot(270.0f);
+					setRot(glm::vec3(0.0f, 0.0f, 270.0f));
 
 				}
 				setState("move");
@@ -134,7 +134,8 @@ void enemy::enMove(float dt, float x, float y, unsigned int seed)
 				}
 				setState("move");
 				int decide =(int)( -1 * (getX() - x) / (abs(getX() - x)));	//normalize the distance to get the direction
-				setRot(decide * -90.0f + 90.0f);
+				setRot(glm::vec3(0.0f, 0.0f, decide * -90.0f + 90.0f));
+				
 				move(decide * dt / 10.0f, 0.0f);
 			}
 
@@ -151,10 +152,10 @@ void enemy::enMove(float dt, float x, float y, unsigned int seed)
 				}
 				setState("move");
 				
-				std::cout << y << "\t" << getY()<<"\n";
+				//std::cout << y << "\t" << getY()<<"\n";
 				int decide = (int)(-1 * (getY() - y) / (abs(getY() - y)));			//normalize the distance to get the direction
-				setRot(decide * -90.0f + 180.0f);
-				move(0.0f, decide * dt / 10.0f);
+				setRot(glm::vec3(0.0f, 0.0f, decide * -90.0f + 180.0f));
+				move(0.0f, decide* dt / 10.0f);
 			}
 		}
 	}

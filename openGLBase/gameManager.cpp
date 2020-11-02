@@ -65,6 +65,8 @@ void gameManager::Update(float dt)
 		victory = 0;
 	}
 
+	//c->target = glm::vec3(p->getX(), p->getZ(), p->getY());
+
 
 	
 
@@ -89,8 +91,11 @@ std::vector<enemy> gameManager::getEnemies()
 }
 
 //constructor
-gameManager::gameManager()
+gameManager::gameManager(Camera* cam, object* pl, audio* am)
 {
+	a = am;
+	c = cam;
+	p = pl;
 	res = false;
 	resetTroops = false;
 	currentFrame = 0;

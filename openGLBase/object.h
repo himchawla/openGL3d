@@ -29,9 +29,7 @@
 class object:public Model
 {
 private:
-	glm::vec3 ObjPosition;
-	float objRotationAngle; 
-	glm::vec3 objScale;
+	
 	std::string name;
 	std::string animState;
 	float speed;
@@ -40,7 +38,7 @@ private:
 public:
 
 	bool getAttack();
-	void setRot(float rot);
+	void setRot(glm::vec3 rot);
 	void setScale(float x, float y);
 	
 
@@ -51,7 +49,8 @@ public:
 		glm::vec3 Scale = glm::vec3(0.1f, 0.1f, 0.1f);
 		glm::vec3 Position = glm::vec3(0.5f, 0.5f, 0.0f);
 		float Rotation = 180.0f;
-		setStuff(Position, Rotation, Scale);
+		camera = cam;
+		setStuff(Position, glm::vec3(0.0f, 0.0f, Rotation), Scale);
 	}
 
 	void setAttack(bool a);
@@ -61,6 +60,7 @@ public:
 	float getSpeed();
 	float getX();
 	float getY();
+	float getZ();
 	void setSpeed(float s);
 
 	std::string getState();
@@ -88,7 +88,8 @@ public:
 	void deleteBuffers();
 	void imageLoader(std::string im, GLuint& TexNum);
 
-	void setStuff(glm::vec3 ObjPos, float objRotAngle, glm::vec3 objSc);
+	void setStuff(glm::vec3 ObjPos, glm::vec3 objRotAngle, glm::vec3 objSc);
+
 
 	GLuint VAO;
 	GLuint VBO;

@@ -26,6 +26,7 @@
 #include "player.h"
 #include "object.h"
 #include "enemy.h"
+#include "audio.h"
 
 constexpr unsigned int str2int(const char* str, int h = 0)
 {
@@ -54,11 +55,14 @@ private:
 	int lives = 3;
 	int numberOfEnemies;
 	std::vector<enemy> enemies;
-
+	Camera* c;
+	object* p;
+	audio* a;
 
 public:
 	int getNumEn();
-	gameManager();
+	bool thump = false;
+	gameManager(Camera* cam, object* pl, audio* am);
 	object &getPl();
 	bool res;
 	bool resetTroops;
@@ -67,6 +71,9 @@ public:
 	bool gameOver;
 	bool victory;
 
+	object* bullet;
+
+	
 
 	bool CheckCollision(object& one, object& two) // AABB - AABB collision
 	{
@@ -184,63 +191,76 @@ public:
 			{
 			case str2int("moveRight"):
 			{
-				if (!gameOver && !victory && !titlescreen)
+				if (1)
 				{
 					if(obj.getState()!="attack")
 					obj.setState("run");
-					if (obj.getX() < 2.0f)
-						obj.move(dt, 0.0f);
-					obj.setRot(180.0f);
+					std::cout << obj.getX() << std::endl;
+					if (1)
+						obj.move(-dt, 0.0f);
+					obj.setRot(glm::vec3(0.0f, 0.0f, 90.0f));		
 					obj.setScale(-0.1f, 0.1f);
+					c->updatePos('d', dt);
 				}
 			}break;
 			
 			case str2int("moveLeft"):
 			{
-				if (!gameOver && !victory && !titlescreen)
+				if (1)
 				{
 					if (obj.getState() != "attack")
 					obj.setState("run");
-					if (obj.getX() > 0.0f)
-						obj.move(-dt, 0.0f);
-					obj.setRot(180.0f);
+					if (1)
+						obj.move(dt, 0.0f);
+					obj.setRot(glm::vec3(0.0f, 0.0f, 270.0f));
 					obj.setScale(0.1f, 0.1f);
+					c->updatePos('a', dt);
 				}
 			}break;
 
 			case str2int("moveTop"):
 			{
-				if (!gameOver && !victory && !titlescreen)
+				if (1)
 				{
 					if (obj.getState() != "attack")
 					obj.setState("run");
-					if (obj.getY() > 0.0f)
+					if (1)
 						obj.move(0.0f, -dt);
-					obj.setRot(270.0f);
 					obj.setScale(0.1f, 0.1f);
+					c->cameraPos.y = obj.getY();
+					c->updatePos('w', dt);
+
+					std::cout << c->cameraPos.x << "\t" << c->cameraPos.y << "\t" << c->cameraPos.z << "\t" << obj.getX() << "\t" << obj.getY() << "\t" << obj.getZ() << std::endl;
+
 				}
 			}break;
 			
 			case str2int("moveBottom"):
 			{
-				if (!gameOver && !victory && !titlescreen)
+				if (1)
 				{
 					if (obj.getState() != "attack")
 					obj.setState("run");
-					if (obj.getY() < 2.0f)
+					if (1)
 						obj.move(0.0f, dt);
-					obj.setRot(90.0f);
 					obj.setScale(0.1f, 0.1f);
+				
+					c->cameraPos.y = obj.getY();
+					c->updatePos('s', dt);
 				}
 			}break;
 			case str2int("attack"):
 			{
-				if (!gameOver && !victory && !titlescreen)
-				{
-					
+				if (1)
+				{			
+					thump = true;
 					obj.setAttack(true);
 					AttackTimer = 3.0f;
 					obj.setState("attack");
+
+					bullet = new object("Resources/Models/pug/Dog 1.obj", c);
+					bullet->ObjPosition = obj.ObjPosition;
+					bullet->setScalee(glm::vec3(1.0f, 1.0f, 1.0f));
 				}
 			}break;
 

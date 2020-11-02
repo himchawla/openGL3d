@@ -26,7 +26,6 @@
 class Camera
 {
 private:
-	glm::vec3 cameraPos;
 	glm::vec3 cameraLookDir;
 	glm::vec3 cameraUpDir;
 	glm::mat4 viewMat;
@@ -38,8 +37,16 @@ private:
 
 public:
 	Camera();
+	void updatePos(char dir, float dt);
 	void Update(float deltaTime);
 	glm::mat4 getMat();
 	glm::mat4 project(glm::mat4 modelMat);
+	glm::vec3 target;
+	glm::vec3 cameraFront;
+
+	glm::vec3 cameraPos;
+
+
+
 };
 
